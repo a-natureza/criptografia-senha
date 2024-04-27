@@ -17,15 +17,16 @@ class LoginController {
             }
 
             const aluno = await Aluno.findOne({
-                where: { email: email, password: password }
+                where: { email: email }
             })
 
             if (!aluno) {
+                console.log(error.message)
                 return res.status(404).json({ error: 'Nenhum aluno corresponde a email e senha fornecidos!' })
             }
             const hashSenha = await compare(password, aluno.password)
 
-            if(hashSenha === false) {
+            if(!hashSenha) {
                 return res.status(403).json({mensagem: 'Aluno não encontrado'})
             }
 
