@@ -58,6 +58,22 @@ class CursoController {
     }
 
     }
+    async deletar(req, res) {
+        try {
+            const { id } = req.params
+
+    Curso.destroy({
+        where: {
+            id: id
+        }
+    }) // DELETE cursos from cursos where id = 1
+
+    res.status(204).json({})
+        } catch (error) {
+            console.error(error.message)
+            res.status(500).json({ error: 'Não foi possível deletar o curso'})
+        }
+    }
 
 }
 
